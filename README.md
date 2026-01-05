@@ -4,7 +4,7 @@ Small tkinter based calculator that I wrote a few years ago.
 
 Key features:
 * Functional with all 4 basic operations
-* Can change fonts and choose between 2 themes
+* Option to change font and choose between a vast selection of 2 themes
 * No error handling
 * One of the themes will hurt your eye
 

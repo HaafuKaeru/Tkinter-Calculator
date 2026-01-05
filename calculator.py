@@ -31,11 +31,13 @@ class Calculator:
         self.theme = StringVar()
         self.theme.trace_add('write', self.apply_theme)
 
-        # set styles
-        self.root.configure(background='#FEB7FF')
+        # set default style
         self.style = ttk.Style()
-        self.style.configure('TLabel', font=(self.font.get(), 20), background='#FEB7FF', foreground='#B5FFFE')
-        self.style.configure('TButton', font=(self.font.get(), 15), background='red', foreground='#B5FFFE')
+        self.theme.set('matrix')
+        self.apply_theme()
+        # self.root.configure(background='#FEB7FF')
+        # self.style.configure('TLabel', font=(self.font.get(), 20), background='#FEB7FF', foreground='#B5FFFE')
+        # self.style.configure('TButton', font=(self.font.get(), 15), background='red', foreground='#B5FFFE')
 
         # dict with number buttons and corresponding position (tuples)
         self.numberslayout = {
@@ -71,7 +73,7 @@ class Calculator:
         # themes menu
         themes_menu = Menu(options_menu, tearoff=False)
         options_menu.add_cascade(menu=themes_menu, label='Themes')
-        for theme in sorted(themes_list):
+        for theme in sorted(themes.keys()):
             themes_menu.add_radiobutton(label=theme, value=theme, variable=self.theme)
 
         # font menu
@@ -79,9 +81,6 @@ class Calculator:
         options_menu.add_cascade(menu=font_menu, label='Fonts')
         for fontname in sorted(self.fontlist):
             font_menu.add_radiobutton(label=fontname, value=fontname, variable=self.font)
-    
-    def apply_theme(self):
-        print('hello')
     
     def set_minidisplay(self):
         labelframe = ttk.Frame(self.root)
@@ -196,7 +195,7 @@ class Calculator:
         templist.append(expression[0])
         for i in range(int((len(expression) - 1)/2)):
             main = templist[-1]
-            block = expression[1+2*i:3+2*i] # takes every pair of two entries after the first element
+            block = expression[1+2*i:3+2*i]  # takes every pair of two entries after the first element
             operand = block[0]
             number = block[1]
             if operand == '*':
@@ -217,7 +216,7 @@ class Calculator:
     def add_subtract(self, expression: list) -> float:
         result = expression[0]
         for i in range(int((len(expression) - 1)/2)):
-            block = expression[1+2*i:3+2*i] # takes every pair of two entries after the first element
+            block = expression[1+2*i:3+2*i]  # takes every pair of two entries after the first element
             operand = block[0]
             number = block[1]
             if operand == '+':
@@ -229,7 +228,7 @@ class Calculator:
         return result
     
     def show_result(self, number: float):
-        self.minitext.set(self.text.get() + ' ' + '=') # update minidisplay
+        self.minitext.set(self.text.get() + ' ' + '=')  # update minidisplay
         if number.is_integer():
             self.text.set(int(number))
         else:
@@ -252,12 +251,16 @@ class Calculator:
     """
     Styling functions
     """
+    def apply_theme(self, *args):
+        t = self.theme.get()
+        self.root.configure(background=themes[t]['basecolor'])
+        self.style.configure('TLabel', font=(themes[t]['font'], 20), background=themes[t]['basecolor'], foreground=themes[t]['textcolor'])
+        self.style.configure('TButton', font=(themes[t]['font'], 30), background=themes[t]['basecolor'], foreground=themes[t]['textcolor'])
     
     def set_font(self, *args):
         f = self.font.get()
         self.style.configure('TLabel', font=(f, 20))
-        self.style.configure('TButton', font=(f, 15))
-
+        self.style.configure('TButton', font=(f, 30))
 
 
 if __name__ == '__main__':

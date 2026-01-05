@@ -18,21 +18,17 @@ fontlist = [
     'OCR A Extended' # matrix
 ]
 
-themes_list = [
-    'bimbo',
-    'matrix'
-]
-
-bimbo = {
-    'font':        'Magneto',
-    'basecolor':   '#FEB7FF',
-    'bordercolor': '#FF56C7',
-    'textcolor':   '#B5FFFE'
-}
-
-matrix = {
-    'font':        'OCR A Extended',
-    'basecolor':   '#000000',
-    'bordercolor': '#00BD3C',
-    'textcolor':   '#00D243'
+themes = {
+    'bimbo': {
+        'font': 'Magneto',
+        'basecolor': '#FEB7FF',
+        'bordercolor': '#FF56C7',
+        'textcolor': '#B5FFFE'
+    },
+    'matrix': {
+        'font': 'OCR A Extended',
+        'basecolor': '#000000',
+        'bordercolor': '#00BD3C',
+        'textcolor': '#00D243'
+    }
 }
